@@ -7,11 +7,9 @@ const handler = NextAuth({
   session: {
     strategy: "jwt",
   },
-
   pages: {
     signIn: "/login",
   },
-
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -36,11 +34,12 @@ const handler = NextAuth({
         );
 
         if (passwordCorrect) {
-            console.log('correct')
-            console.log(user)
+            // console.log(user)
           return {
             id: user.id,
-            username: user?.username,
+            email: user?.username,
+            name: user?.name,
+            image: ""
           };
         }
 

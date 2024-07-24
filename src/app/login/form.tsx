@@ -37,7 +37,7 @@ export default function LoginForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
         username: "",
-      password: "",
+        password: "",
     },
   });
 
@@ -52,7 +52,6 @@ export default function LoginForm() {
         password,
         redirect: false,
       });
-      console.log({ response });
       if (!response?.error) {
         router.push("/");
         router.refresh();
