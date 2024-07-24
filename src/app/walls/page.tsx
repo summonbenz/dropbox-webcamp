@@ -1,10 +1,7 @@
-import { PrismaClient } from '@prisma/client';
-import { GetServerSideProps } from 'next';
-
-const prisma = new PrismaClient();
+import { db } from '@/db';
 
 async function getMessages() {
-  return await prisma.message.findMany();
+  return await db.message.findMany();
 }
 
 export default async function Wall() {
