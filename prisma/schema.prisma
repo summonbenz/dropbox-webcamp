@@ -1,0 +1,49 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  username  String
+  password  String
+  name      String
+  jver      String
+  purl      String
+  jwc       String?
+  ywc       String?
+  messagesFrom Message[] @relation("MessagesFrom")
+  messagesTo   Message[] @relation("MessagesTo")
+}
+
+model Message {
+  mid     Int     @id @default(autoincrement())
+  fid     Int
+  tid     Int?
+  fromUser User  @relation("MessagesFrom", fields: [fid], references: [id])
+  toUser   User? @relation("MessagesTo", fields: [tid], references: [id])
+  wallId  Int?
+  wall    Wall? @relation("MessagesWall", fields: [wallId], references: [id])
+  message String
+  public  IsPublic @default(public)
+  sticker String?
+  pcol    String?
+  cardhl  String?
+  createdAt DateTime @default(now())
+}
+enum IsPublic {
+  public
+  private
+}
+model Wall {
+  id  Int     @id @default(autoincrement())
+  name String
+  messages   Message[] @relation("MessagesWall")
+}
