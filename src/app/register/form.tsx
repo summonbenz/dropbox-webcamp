@@ -82,7 +82,7 @@ export default function FormPage() {
   const ywc = Array.from({ length: 19 }, (_, index) => 19 - index);
 
   return (
-    <Form {...form} className="w-2/3 space-y-6">
+    <Form {...form} >
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
